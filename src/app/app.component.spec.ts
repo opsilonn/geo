@@ -1,29 +1,20 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+import { MockBuilder } from 'ng-mocks';
+import { AppComponent } from 'src/app/app.component';
+import { AppModule } from 'src/app/app.module';
 
 describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule],
-    declarations: [AppComponent]
-  }));
+  let component: AppComponent;
 
-  it('should create the app', () => {
+  beforeEach(() => MockBuilder(AppComponent, AppModule));
+
+  beforeEach(() => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    component = fixture.componentInstance;
   });
 
-  it(`should have as title 'geo'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('geo');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('geo app is running!');
+  it('should create the #AppComponent', () => {
+    expect(component).toBeTruthy();
   });
 });
+
