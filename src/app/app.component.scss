@@ -20,12 +20,13 @@
     display: flex;
     margin: 82px auto 32px;
     padding: 0 16px;
-    max-width: 960px;
+    max-height: 1080px;
+    max-width: 1080px;
     flex-direction: column;
     align-items: center;
   }
 
   .grid-layout-custom {
-    height: 50%;
-    width: 50%;
+    height: 100%;
+    width: 100%;
   }
