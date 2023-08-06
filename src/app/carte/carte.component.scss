@@ -1,0 +1,26 @@
+.carte {
+    height: 500px;
+    width: 500px;
+}
+
+.selected {
+    fill: DarkKhaki;
+    stroke: DarkOrange;
+    stroke-width: 2;
+}
+
+.isIncorrect {
+    fill: pink;
+    stroke: red;
+    stroke-width: 2;
+}
+
+.isCorrect {
+    fill: ForestGreen;
+    stroke: DarkGreen;
+    stroke-width: 2;
+}
+
+body {
+    padding: 20px;
+}
