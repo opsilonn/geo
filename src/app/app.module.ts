@@ -9,13 +9,15 @@ import { AppComponent } from './app.component';
 import { CarteComponent } from './carte/carte.component';
 import { SelectionComponent } from './selection/selection.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { PromptComponent } from './prompt/prompt.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
     CarteComponent,
-    SelectionComponent
+    SelectionComponent,
+    PromptComponent
   ],
   imports: [
     BrowserModule,
