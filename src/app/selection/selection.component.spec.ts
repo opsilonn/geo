@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import { SelectionComponent } from './selection.component';
-import { AppModule } from 'src/app/app.module';
 import { MockBuilder } from 'ng-mocks';
+import { AppModule } from 'src/app/app.module';
+import { SelectionComponent } from './selection.component';
 
 describe('SelectionComponent', () => {
   let component: SelectionComponent;
@@ -16,5 +16,22 @@ describe('SelectionComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('#onRegionSelected Quand une région est sélectionnée, alors elle devient la seule à avoir le statut "sélectionné"', () => {
+    // Given
+    component.regions = [
+      { label: 'Je suis sélectionné au début', isSelected: true },
+      { label: 'Je serai sélectionné à la fin', isSelected: false },
+    ];
+
+    // When
+    component.onRegionSelected(component.regions[1]);
+
+    // Then
+    expect(component.regions).toEqual([
+      { label: 'Je suis sélectionné au début', isSelected: false },
+      { label: 'Je serai sélectionné à la fin', isSelected: true },
+    ]);
   });
 });
