@@ -16,12 +16,20 @@ export class CarteComponent implements AfterViewInit {
     this.setUpClickEvent();
   }
 
+  /** Retourne la liste des noms des états */
+  public getAllStates(): string[] {
+    return $("svg .state[id]")
+      .map(function () { return this.id; })
+      .get();
+  }
+
+  /** Configure la sélection des états au clic */
   private setUpClickEvent(): void {
     const allStates = $("svg.us > *");
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
 
-    allStates.on("click", function() {
+    allStates.on("click", function () {
       allStates.removeClass("selected");
       $(this).addClass("selected");
       self.selectedState = $(this).attr('id')!;

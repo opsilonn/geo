@@ -7,9 +7,11 @@
     </mat-grid-tile>
     
     <mat-grid-tile>
-      <app-selection></app-selection>
+      <app-prompt *ngIf="isGameModeFindName()" [stateName]="stateName"></app-prompt>
+      <app-selection *ngIf="isGameModeFindOnMap()"></app-selection>
     </mat-grid-tile>
   </mat-grid-list>
+  <button mat-raised-button color="accent" (click)="launchParty()">Go</button>
 </div>
 
 <router-outlet></router-outlet>
