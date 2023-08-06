@@ -1,5 +1,5 @@
 <div>
-    <button *ngFor="let region of regions" mat-raised-button [ngClass]="{ 'isSelected': region.isSelected }"
+    <button *ngFor="let region of regions" mat-raised-button [ngClass]="{ 'isCorrect': region.isCorrect, 'isIncorrect': region.isIncorrect, 'isSelected': region.isSelected }"
         [disabled]="hasUserChosen" (click)="onRegionSelected(region)">
         {{ region.label }}
     </button>
