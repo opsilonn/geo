@@ -23,6 +23,28 @@ describe('SelectionComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('#ngOnInit Quand le composant est chargé, alors une valeur à trouver est sélectionnée', () => {
+    // Given
+    component.hasUserChosen = true;
+    component.regions = [
+      { label: 'Choix A', isCorrect: false, isIncorrect: false, isSelected: false },
+      { label: 'Choix B', isCorrect: false, isIncorrect: false, isSelected: false },
+    ];
+    component['answer'] = 'lalilulelo';
+    spyOn(Math, 'random').and.returnValue(0); // On mocke l'aléatoire pour forcer le résultat
+
+    // When
+    component.ngOnInit();
+
+    // Then
+    expect(component.hasUserChosen).toBeFalse();
+    expect(component['answer']).toEqual('Choix A');
+    expect(component.regions).toEqual([
+      { label: 'Choix A', isCorrect: false, isIncorrect: false, isSelected: false },
+      { label: 'Choix B', isCorrect: false, isIncorrect: false, isSelected: false },
+    ]);
+  });
+
   it('#onRegionSelected Quand une région est sélectionnée, alors elle devient la seule à avoir le statut "sélectionné"', () => {
     // Given
     component.hasUserChosen = false;
@@ -77,6 +99,28 @@ describe('SelectionComponent', () => {
     expect(component.regions).toEqual([
       { label: 'Je suis la bonne réponse', isCorrect: true, isIncorrect: false, isSelected: false },
       { label: 'Je suis la mauvaise réponse', isCorrect: false, isIncorrect: true, isSelected: true },
+    ]);
+  });
+  
+  it('#onRegionSelected Quand une région est sélectionnée et passée plusieurs secondes, alors un nouveau round est configuré', (done: () => void) => {
+    // Given
+    component.hasUserChosen = true;
+    component.regions = [
+      { label: 'Choix A', isCorrect: false, isIncorrect: false, isSelected: false },
+      { label: 'Choix B', isCorrect: false, isIncorrect: false, isSelected: false },
+    ];
+    component['answer'] = 'Choix B';
+    spyOn(Math, 'random').and.returnValue(0); // On mocke l'aléatoire pour forcer le résultat
+
+    // When
+    component.onRegionSelected(component.regions[1]);
+    jasmine.clock().tick(4000);
+
+    // Then
+    expect(component['answer']).toEqual('Choix A');
+    expect(component.regions).toEqual([
+      { label: 'Choix A', isCorrect: false, isIncorrect: false, isSelected: false },
+      { label: 'Choix B', isCorrect: false, isIncorrect: false, isSelected: false },
     ]);
   });
 });
