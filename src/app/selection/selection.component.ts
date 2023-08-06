@@ -7,6 +7,7 @@ import { Proposition } from 'src/app/models/proposition';
   styleUrls: ['./selection.component.scss']
 })
 export class SelectionComponent {
+  public hasUserChosen = false;
   public regions: Proposition[] = [
     { label: 'Région A', isSelected: false },
     { label: 'Région B', isSelected: false },
@@ -20,6 +21,7 @@ export class SelectionComponent {
    * @param selectedRegion Région sélectionnée
    */
   public onRegionSelected(selectedRegion: Proposition): void {
+    this.hasUserChosen = true;
     this.regions.forEach((region: Proposition) => region.isSelected = false);
     selectedRegion.isSelected = true;
   }

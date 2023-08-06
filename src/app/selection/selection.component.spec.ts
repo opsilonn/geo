@@ -20,6 +20,7 @@ describe('SelectionComponent', () => {
 
   it('#onRegionSelected Quand une région est sélectionnée, alors elle devient la seule à avoir le statut "sélectionné"', () => {
     // Given
+    component.hasUserChosen = false;
     component.regions = [
       { label: 'Je suis sélectionné au début', isSelected: true },
       { label: 'Je serai sélectionné à la fin', isSelected: false },
@@ -29,6 +30,7 @@ describe('SelectionComponent', () => {
     component.onRegionSelected(component.regions[1]);
 
     // Then
+    expect(component.hasUserChosen).toBeTrue();
     expect(component.regions).toEqual([
       { label: 'Je suis sélectionné au début', isSelected: false },
       { label: 'Je serai sélectionné à la fin', isSelected: true },
