@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./selection.component.scss']
 })
 export class SelectionComponent {
-
+  public regions = ['Région A', 'Région B', 'Région C', 'Région D'];
 }
