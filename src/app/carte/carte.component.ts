@@ -39,6 +39,15 @@ export class CarteComponent implements AfterViewInit {
     });
   }
 
+  /**
+   * Applique la classe "sélectionnée" à un élément, et la retire aux autres
+   * @param stateName Nom de balise à sélectionner
+   */
+  public setSelectedState(stateName: string): void {
+    $(`svg > *`).removeClass('selected');
+    $(`svg #${stateName}`).addClass('selected');
+  }
+
   public isUSA(): boolean {
     return this.selectedCountry === CountryEnum.USA;
   }
