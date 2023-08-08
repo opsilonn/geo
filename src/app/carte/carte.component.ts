@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
 import { CountryEnum } from 'app/models/country-enum';
 import * as $ from "jquery";
 
@@ -8,6 +8,9 @@ import * as $ from "jquery";
   styleUrls: ['./carte.component.scss']
 })
 export class CarteComponent implements AfterViewInit {
+
+  @Input()
+  public isUserInputEnabled!: boolean;
 
   public selectedCountry = CountryEnum.USA;
   public selectedState = '';

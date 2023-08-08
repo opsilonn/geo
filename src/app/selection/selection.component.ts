@@ -10,6 +10,9 @@ export class SelectionComponent implements OnInit {
   @Input()
   propositions!: Proposition[];
 
+  @Input()
+  public isUserInputEnabled!: boolean;
+
   @Output()
   whenUserHasChosen: EventEmitter<Proposition> = new EventEmitter();
 

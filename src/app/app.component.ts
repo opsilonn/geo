@@ -15,6 +15,7 @@ export class AppComponent {
   carteComponent!: CarteComponent;
 
   public gameMode = GameModeEnum.FIND_NAME;
+  public isUserInputEnabled = true;
   public propositions: Proposition[] = [];
   public stateName = '';
   private stateNames: string[] = [];
@@ -42,10 +43,13 @@ export class AppComponent {
 
       this.propositions = ListHelper.shuffle(answers) as Proposition[];
     }
+
+    this.isUserInputEnabled = true;
   }
 
   /** Lorsque le joueur a sélectionné une proposition, on attend un peu avant de révéler les réponses, puis on relance un round */
   public playerHasChosenProposition(chosenProposition: Proposition): void {
+    this.isUserInputEnabled = false;
     const TIME_TO_WAIT_FOR_NEXT_ROUND = 1.5 * 1000;
     const TIME_TO_WAIT_TO_SHOW_RESULT = 1.5 * 1000;
 

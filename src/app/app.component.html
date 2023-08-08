@@ -3,12 +3,12 @@
 <div class="content" role="main">
   <mat-grid-list cols="2" rowHeight="800px" class="grid-layout-custom">
     <mat-grid-tile>
-      <app-carte></app-carte>
+      <app-carte [isUserInputEnabled]="isUserInputEnabled"></app-carte>
     </mat-grid-tile>
     
     <mat-grid-tile>
       <app-prompt *ngIf="isGameModeFindOnMap()" [stateName]="stateName"></app-prompt>
-      <app-selection *ngIf="isGameModeFindName()" [propositions]="propositions" (whenUserHasChosen)="playerHasChosenProposition($event)"></app-selection>
+      <app-selection *ngIf="isGameModeFindName()" [isUserInputEnabled]="isUserInputEnabled" [propositions]="propositions" (whenUserHasChosen)="playerHasChosenProposition($event)"></app-selection>
     </mat-grid-tile>
   </mat-grid-list>
   <button mat-raised-button color="accent" (click)="launchParty()">Go</button>

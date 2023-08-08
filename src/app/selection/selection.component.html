@@ -1,6 +1,6 @@
 <div>
     <button *ngFor="let proposition of propositions" mat-raised-button [ngClass]="{ 'isCorrect': proposition.isCorrect, 'isIncorrect': proposition.isIncorrect, 'isSelected': proposition.isSelected }"
-        [disabled]="hasUserChosen" (click)="onRegionSelected(proposition)">
+        [disabled]="!isUserInputEnabled" (click)="onRegionSelected(proposition)">
         {{ proposition.label }}
     </button>
 </div>

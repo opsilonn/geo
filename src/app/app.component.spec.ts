@@ -36,6 +36,7 @@ describe('AppComponent', () => {
     component.launchParty();
 
     // Then
+    expect(component.isUserInputEnabled).toBeTrue();
     expect(component.propositions).toEqual([
       { label: 'État 1', isCorrect: false, isIncorrect: false, isSelected: false },
       { label: 'État 2', isCorrect: false, isIncorrect: false, isSelected: false },
@@ -59,6 +60,7 @@ describe('AppComponent', () => {
     jasmine.clock().tick(2000);
 
     // Then
+    expect(component.isUserInputEnabled).toBeFalse();
     expect(component.propositions).toEqual([
       { label: 'Je suis la bonne réponse', isCorrect: true, isIncorrect: false, isSelected: true },
       { label: 'Je suis la mauvaise réponse', isCorrect: false, isIncorrect: false, isSelected: false },
@@ -79,6 +81,7 @@ describe('AppComponent', () => {
     jasmine.clock().tick(2000);
 
     // Then
+    expect(component.isUserInputEnabled).toBeFalse();
     expect(component.propositions).toEqual([
       { label: 'Je suis la bonne réponse', isCorrect: true, isIncorrect: false, isSelected: false },
       { label: 'Je suis la mauvaise réponse', isCorrect: false, isIncorrect: true, isSelected: true },
@@ -98,6 +101,7 @@ describe('AppComponent', () => {
     spyOn(Math, 'random').and.returnValue(0); // On mocke l'aléatoire pour forcer le résultat
 
     // When
+    expect(component.isUserInputEnabled).toBeTrue();
     component.playerHasChosenProposition(component.propositions[1]);
     jasmine.clock().tick(4000);
 
