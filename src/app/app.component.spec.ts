@@ -21,16 +21,22 @@ describe('AppComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('#launchParty Quand on crée une partie avec le paramétrage "Pour un état affiché, trouver le nom", alors sélectionne un État à faire deviner', () => {
+  it('#launchParty Quand on crée une partie avec le paramétrage "Pour un état affiché, trouver le nom", alors sélectionne un État à faire deviner et 4 propositions, dont la bonne', () => {
     // Given
     component.gameMode = GameModeEnum.FIND_NAME;
-    component.carteComponent = { getAllStates: () => ['État 1', 'État 2', 'État 3'] } as CarteComponent;
+    component.carteComponent = { getAllStates: () => ['État 1', 'État 2', 'État 3', 'État 4', 'État 5', 'État 6'] } as CarteComponent;
     spyOn(Math, 'random').and.returnValue(0); // On mocke l'aléatoire pour forcer le résultat
 
     // When
     component.launchParty();
 
     // Then
+    expect(component.propositions).toEqual([
+      { label: 'État 1', isCorrect: true, isIncorrect: false, isSelected: false },
+      { label: 'État 2', isCorrect: false, isIncorrect: false, isSelected: false },
+      { label: 'État 3', isCorrect: false, isIncorrect: false, isSelected: false },
+      { label: 'État 4', isCorrect: false, isIncorrect: false, isSelected: false },
+    ]);
     expect(component.stateName).toEqual('État 1');
   });
 });
