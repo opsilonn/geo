@@ -11,10 +11,15 @@ describe('AppComponent', () => {
   beforeEach(() => MockBuilder(AppComponent, AppModule));
 
   beforeEach(() => {
+    jasmine.clock().install();
     const fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     fixture.whenStable();
+  });
+  
+  afterEach(() => {
+    jasmine.clock().uninstall();
   });
 
   it('should create the #AppComponent', () => {
@@ -32,11 +37,76 @@ describe('AppComponent', () => {
 
     // Then
     expect(component.propositions).toEqual([
-      { label: 'État 1', isCorrect: true, isIncorrect: false, isSelected: false },
+      { label: 'État 1', isCorrect: false, isIncorrect: false, isSelected: false },
       { label: 'État 2', isCorrect: false, isIncorrect: false, isSelected: false },
       { label: 'État 3', isCorrect: false, isIncorrect: false, isSelected: false },
       { label: 'État 4', isCorrect: false, isIncorrect: false, isSelected: false },
     ]);
     expect(component.stateName).toEqual('État 1');
+  });
+
+  it('#playerHasChosenProposition Quand la bonne proposition est sélectionnée, alors on assigne les classes en conséquence', () => {
+    // Given
+    component.gameMode = GameModeEnum.FIND_NAME;
+    component.propositions = [
+      { label: 'Je suis la bonne réponse', isCorrect: false, isIncorrect: false, isSelected: false },
+      { label: 'Je suis la mauvaise réponse', isCorrect: false, isIncorrect: false, isSelected: false },
+    ];
+    component.stateName = 'Je suis la bonne réponse';
+
+    // When
+    component.playerHasChosenProposition(component.propositions[0]);
+    jasmine.clock().tick(2000);
+
+    // Then
+    expect(component.propositions).toEqual([
+      { label: 'Je suis la bonne réponse', isCorrect: true, isIncorrect: false, isSelected: true },
+      { label: 'Je suis la mauvaise réponse', isCorrect: false, isIncorrect: false, isSelected: false },
+    ]);
+  });
+
+  it('#playerHasChosenProposition Quand la mauvaise proposition est sélectionnée, alors on assigne les classes en conséquence', () => {
+    // Given
+    component.gameMode = GameModeEnum.FIND_NAME;
+    component.propositions = [
+      { label: 'Je suis la bonne réponse', isCorrect: false, isIncorrect: false, isSelected: false },
+      { label: 'Je suis la mauvaise réponse', isCorrect: false, isIncorrect: false, isSelected: false },
+    ];
+    component.stateName = 'Je suis la bonne réponse';
+
+    // When
+    component.playerHasChosenProposition(component.propositions[1]);
+    jasmine.clock().tick(2000);
+
+    // Then
+    expect(component.propositions).toEqual([
+      { label: 'Je suis la bonne réponse', isCorrect: true, isIncorrect: false, isSelected: false },
+      { label: 'Je suis la mauvaise réponse', isCorrect: false, isIncorrect: true, isSelected: true },
+    ]);
+  });
+  
+  it('#playerHasChosenProposition Quand une région est sélectionnée et passée plusieurs secondes, alors un nouveau round est configuré', () => {
+    // Given
+    component.gameMode = GameModeEnum.FIND_NAME;
+    component['stateNames'] = ['État 1', 'État 2', 'État 3', 'État 4', 'État 5', 'État 6'];
+    component['stateNamesCopy'] = component['stateNames'];
+    component.propositions = [
+      { label: 'Choix A', isCorrect: false, isIncorrect: false, isSelected: false },
+      { label: 'Choix B', isCorrect: false, isIncorrect: false, isSelected: false },
+    ];
+    component.stateName = 'Choix A';
+    spyOn(Math, 'random').and.returnValue(0); // On mocke l'aléatoire pour forcer le résultat
+
+    // When
+    component.playerHasChosenProposition(component.propositions[1]);
+    jasmine.clock().tick(4000);
+
+    // Then
+    expect(component.propositions).toEqual([
+      { label: 'État 1', isCorrect: false, isIncorrect: false, isSelected: false },
+      { label: 'État 2', isCorrect: false, isIncorrect: false, isSelected: false },
+      { label: 'État 3', isCorrect: false, isIncorrect: false, isSelected: false },
+      { label: 'État 4', isCorrect: false, isIncorrect: false, isSelected: false },
+    ]);
   });
 });
