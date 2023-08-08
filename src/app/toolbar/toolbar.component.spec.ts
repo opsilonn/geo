@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import { ToolbarComponent } from './toolbar.component';
+import { AppModule } from 'app/app.module';
+import { ToolbarComponent } from 'app/toolbar/toolbar.component';
 import { MockBuilder } from 'ng-mocks';
-import { AppModule } from 'src/app/app.module';
 
 describe('ToolbarComponent', () => {
   let component: ToolbarComponent;

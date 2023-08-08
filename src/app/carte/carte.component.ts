@@ -1,6 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { CountryEnum } from 'app/models/country-enum';
 import * as $ from "jquery";
-import { CountryEnum } from 'src/app/models/country-enum';
 
 @Component({
   selector: 'app-carte',

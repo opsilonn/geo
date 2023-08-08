@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { CarteComponent } from 'src/app/carte/carte.component';
-import { GameModeEnum } from 'src/app/models/game-mode-enum';
+import { CarteComponent } from 'app/carte/carte.component';
+import { GameModeEnum } from 'app/models/game-mode-enum';
 
 @Component({
   selector: 'app-root',

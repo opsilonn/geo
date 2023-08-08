@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Proposition } from 'src/app/models/proposition';
+import { Proposition } from 'app/models/proposition';
 
 @Component({
   selector: 'app-selection',

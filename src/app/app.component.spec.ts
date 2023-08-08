@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
+import { AppComponent } from 'app/app.component';
+import { AppModule } from 'app/app.module';
+import { CarteComponent } from 'app/carte/carte.component';
+import { GameModeEnum } from 'app/models/game-mode-enum';
 import { MockBuilder } from 'ng-mocks';
-import { AppComponent } from 'src/app/app.component';
-import { AppModule } from 'src/app/app.module';
-import { CarteComponent } from 'src/app/carte/carte.component';
-import { GameModeEnum } from 'src/app/models/game-mode-enum';
 
 describe('AppComponent', () => {
   let component: AppComponent;
