@@ -51,7 +51,7 @@ export class CarteComponent implements AfterViewInit {
    * @param stateName Nom de balise à sélectionner
    */
   public setSelectedState(stateName: string): void {
-    $(`svg #${stateName}`).addClass('selected');
+    this.setStateClass(stateName, 'selected');
   }
 
   /**
@@ -59,7 +59,7 @@ export class CarteComponent implements AfterViewInit {
    * @param stateName Nom de balise à sélectionner
    */
   public setCorrectState(stateName: string): void {
-    $(`svg #${stateName}`).addClass('isCorrect');
+    this.setStateClass(stateName, 'isCorrect');
   }
 
   /**
@@ -67,7 +67,16 @@ export class CarteComponent implements AfterViewInit {
    * @param stateName Nom de balise à sélectionner
    */
   public setIncorrectState(stateName: string): void {
-    $(`svg #${stateName}`).addClass('isIncorrect');
+    this.setStateClass(stateName, 'isIncorrect');
+  }
+
+  /**
+   * Applique une classe à la balise d'un État
+   * @param stateName Nom de l'État
+   * @param className Classe à ajouter
+   */
+  private setStateClass(stateName: string, className: string): void {
+    $(`svg #${stateName}`).addClass(className);
   }
 
   /** Retire les classes aux régions */
