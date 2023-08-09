@@ -31,22 +31,33 @@ export class AppComponent {
 
   /** Initialise la manche d'une partie */
   private initRound(): void {
+    this.setRandomStateName();
+
     if (this.isGameModeFindName()) {
-      const randomIndex: number = Math.floor(Math.random() * this.stateNames.length);
-      this.stateName = this.stateNames.splice(randomIndex, 1)[0];
-      this.carteComponent.setSelectedState(this.stateName);
-      this.carteComponent.disableInteraction();
-
-      const correctAnswer: Proposition = { label: this.stateName, isCorrect: true, isIncorrect: false, isSelected: false };
-      const incorrectAnswer: Proposition[] = (ListHelper
-        .getRandomElements(this.stateNamesCopy, this.NUMBER_OF_INCORRECT_ANSWERS) as string[])
-        .map((stateName: string) => ({ label: stateName, isCorrect: false, isIncorrect: false, isSelected: false }));
-      const answers = [correctAnswer, ...incorrectAnswer];
-
-      this.propositions = ListHelper.shuffle(answers) as Proposition[];
+      this.initFindNameRound();
     }
 
     this.isUserInputEnabled = true;
+  }
+
+  /** Sélectionne aléatoirement une région, et la supprime de la liste */
+  private setRandomStateName(): void {
+    const randomIndex: number = Math.floor(Math.random() * this.stateNames.length);
+    this.stateName = this.stateNames.splice(randomIndex, 1)[0];
+  }
+  
+  /** Initialise la manche d'une partie */
+  private initFindNameRound(): void {
+    this.carteComponent.setSelectedState(this.stateName);
+    this.carteComponent.disableInteraction();
+
+    const correctAnswer: Proposition = { label: this.stateName, isCorrect: false, isIncorrect: false, isSelected: false };
+    const incorrectAnswer: Proposition[] = (ListHelper
+      .getRandomElements(this.stateNamesCopy, this.NUMBER_OF_INCORRECT_ANSWERS) as string[])
+      .map((stateName: string) => ({ label: stateName, isCorrect: false, isIncorrect: false, isSelected: false }));
+    const answers = [correctAnswer, ...incorrectAnswer];
+
+    this.propositions = ListHelper.shuffle(answers) as Proposition[];
   }
 
   /** Lorsque le joueur a sélectionné une proposition, on attend un peu avant de révéler les réponses, puis on relance un round */
