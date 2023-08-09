@@ -35,6 +35,7 @@ export class AppComponent {
       const randomIndex: number = Math.floor(Math.random() * this.stateNames.length);
       this.stateName = this.stateNames.splice(randomIndex, 1)[0];
       this.carteComponent.setSelectedState(this.stateName);
+      this.carteComponent.disableInteraction();
 
       const correctAnswer: Proposition = { label: this.stateName, isCorrect: true, isIncorrect: false, isSelected: false };
       const incorrectAnswer: Proposition[] = (ListHelper

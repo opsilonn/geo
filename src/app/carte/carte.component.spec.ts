@@ -19,6 +19,16 @@ describe('CarteComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('#disableInteraction Quand appelé, alors désactive les interactions de l\'utilisateur avec le composant', () => {
+    // Given
+    component['areInteractionEnabled'] = true;
+
+    // When
+    component.disableInteraction();
+
+    // Then
+    expect(component['areInteractionEnabled']).toBeFalse();
+  });
   
   it('#isUSA Quand le pays sélectionné est les USA, alors retourne true', () => {
     // Given

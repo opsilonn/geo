@@ -13,7 +13,7 @@ export class CarteComponent implements AfterViewInit {
   public isUserInputEnabled!: boolean;
 
   public selectedCountry = CountryEnum.USA;
-  public selectedState = '';
+  private areInteractionEnabled = false;
 
   ngAfterViewInit(): void {
     this.setUpClickEvent();
@@ -33,9 +33,10 @@ export class CarteComponent implements AfterViewInit {
     const self = this;
 
     allStates.on("click", function () {
-      allStates.removeClass("selected");
-      $(this).addClass("selected");
-      self.selectedState = $(this).attr('id')!;
+      if (self.areInteractionEnabled) {
+        allStates.removeClass("selected");
+        $(this).addClass("selected");
+      }
     });
   }
 
@@ -46,6 +47,11 @@ export class CarteComponent implements AfterViewInit {
   public setSelectedState(stateName: string): void {
     $(`svg > *`).removeClass('selected');
     $(`svg #${stateName}`).addClass('selected');
+  }
+
+  /** Désactive les interactions avec la carte */
+  public disableInteraction(): void {
+    this.areInteractionEnabled = false;
   }
 
   public isUSA(): boolean {
