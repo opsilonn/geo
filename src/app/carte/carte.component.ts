@@ -45,8 +45,16 @@ export class CarteComponent implements AfterViewInit {
    * @param stateName Nom de balise à sélectionner
    */
   public setSelectedState(stateName: string): void {
-    $(`svg > *`).removeClass('selected');
+    this.resetStates();
     $(`svg #${stateName}`).addClass('selected');
+  }
+
+  /** Retire les classes aux régions */
+  public resetStates(): void {
+    $(`svg > *`)
+      .removeClass('selected')
+      .removeClass('isCorrect')
+      .removeClass('isIncorrect');
   }
 
   /** Active les interactions avec la carte */
