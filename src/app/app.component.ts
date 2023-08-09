@@ -25,6 +25,8 @@ export class AppComponent {
   private stateNames: string[] = [];
   private stateNamesCopy: string[] = [];
   private readonly NUMBER_OF_INCORRECT_ANSWERS = 3;
+  private readonly TIME_TO_WAIT_FOR_NEXT_ROUND = 1.5 * 1000;
+  private readonly TIME_TO_WAIT_TO_SHOW_RESULT = 1.5 * 1000;
 
   /** Lance une partie une partie */
   public launchParty(): void {
@@ -76,8 +78,6 @@ export class AppComponent {
   /** Lorsque le joueur a sélectionné une proposition, on attend un peu avant de révéler les réponses, puis on relance un round */
   public playerHasChosenProposition(chosenProposition: Proposition): void {
     this.isUserInputEnabled = false;
-    const TIME_TO_WAIT_FOR_NEXT_ROUND = 1.5 * 1000;
-    const TIME_TO_WAIT_TO_SHOW_RESULT = 1.5 * 1000;
 
     setTimeout(() => {
       const correctAnwser = this.propositions.find((proposition: Proposition) => proposition.label === this.stateName);
@@ -88,15 +88,13 @@ export class AppComponent {
       if (!userAnswer!.isCorrect) {
         userAnswer!.isIncorrect = true;
       }
-      setTimeout(() => this.initRound(), TIME_TO_WAIT_FOR_NEXT_ROUND);
-    }, TIME_TO_WAIT_TO_SHOW_RESULT);
+      setTimeout(() => this.initRound(), this.TIME_TO_WAIT_FOR_NEXT_ROUND);
+    }, this.TIME_TO_WAIT_TO_SHOW_RESULT);
   }
 
   /** Lorsque le joueur a sélectionné un état sur la carte, on attend un peu avant de révéler les réponses, puis on relance un round */
   public playerHasChosenStateOnMap(selectedStateName: string): void {
     this.carteComponent.disableInteraction();
-    const TIME_TO_WAIT_FOR_NEXT_ROUND = 1.5 * 1000;
-    const TIME_TO_WAIT_TO_SHOW_RESULT = 1.5 * 1000;
 
     setTimeout(() => {
       this.carteComponent.setCorrectState(this.stateName);
@@ -105,8 +103,8 @@ export class AppComponent {
       }
       this.promptComponent.setUserAnswer(selectedStateName);
 
-      setTimeout(() => this.initRound(), TIME_TO_WAIT_FOR_NEXT_ROUND);
-    }, TIME_TO_WAIT_TO_SHOW_RESULT);
+      setTimeout(() => this.initRound(), this.TIME_TO_WAIT_FOR_NEXT_ROUND);
+    }, this.TIME_TO_WAIT_TO_SHOW_RESULT);
   }
 
   /** Retourne si le mode de jeu sélectionné est "trouver par nom" */
