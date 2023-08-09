@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CountryEnum } from 'app/models/country-enum';
 import * as $ from "jquery";
 
@@ -11,6 +11,9 @@ export class CarteComponent implements AfterViewInit {
 
   @Input()
   public isUserInputEnabled!: boolean;
+
+  @Output()
+  whenUserHasChosen: EventEmitter<string> = new EventEmitter();
 
   public selectedCountry = CountryEnum.USA;
   private areInteractionEnabled = false;
@@ -34,19 +37,37 @@ export class CarteComponent implements AfterViewInit {
 
     allStates.on("click", function () {
       if (self.areInteractionEnabled) {
-        allStates.removeClass("selected");
-        $(this).addClass("selected");
+        const selectedStateName = $(this).attr('id');
+        if (selectedStateName) {
+          self.whenUserHasChosen.next(selectedStateName!);
+          $(this).addClass("selected");
+        }
       }
     });
   }
 
   /**
-   * Applique la classe "sélectionnée" à un élément, et la retire aux autres
+   * Applique la classe "sélectionnée" à un élément
    * @param stateName Nom de balise à sélectionner
    */
   public setSelectedState(stateName: string): void {
-    this.resetStates();
     $(`svg #${stateName}`).addClass('selected');
+  }
+
+  /**
+   * Applique la classe "correcte" à un élément
+   * @param stateName Nom de balise à sélectionner
+   */
+  public setCorrectState(stateName: string): void {
+    $(`svg #${stateName}`).addClass('isCorrect');
+  }
+
+  /**
+   * Applique la classe "incorrecte" à un élément
+   * @param stateName Nom de balise à sélectionner
+   */
+  public setIncorrectState(stateName: string): void {
+    $(`svg #${stateName}`).addClass('isIncorrect');
   }
 
   /** Retire les classes aux régions */

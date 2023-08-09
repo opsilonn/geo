@@ -14,7 +14,7 @@ export class AppComponent {
   @ViewChild(CarteComponent)
   carteComponent!: CarteComponent;
 
-  public gameMode = GameModeEnum.FIND_NAME;
+  public gameMode = GameModeEnum.FIND_ON_MAP;
   public isUserInputEnabled = true;
   public propositions: Proposition[] = [];
   public stateName = '';
@@ -35,6 +35,8 @@ export class AppComponent {
 
     if (this.isGameModeFindName()) {
       this.initFindNameRound();
+    } else if (this.isGameModeFindOnMap()) {
+      this.initFindOnMapRound();
     }
 
     this.isUserInputEnabled = true;
@@ -46,7 +48,7 @@ export class AppComponent {
     this.stateName = this.stateNames.splice(randomIndex, 1)[0];
   }
   
-  /** Initialise la manche d'une partie */
+  /** Initialise la manche d'une partie "Trouver le nom d'un état affiché sur la carte" */
   private initFindNameRound(): void {
     this.carteComponent.setSelectedState(this.stateName);
     this.carteComponent.disableInteraction();
@@ -58,6 +60,12 @@ export class AppComponent {
     const answers = [correctAnswer, ...incorrectAnswer];
 
     this.propositions = ListHelper.shuffle(answers) as Proposition[];
+  }
+  
+  /** Initialise la manche d'une partie "Trouver d'un état sur la carte selon son nom" */
+  private initFindOnMapRound(): void {
+    this.carteComponent.resetStates();
+    this.carteComponent.enableInteraction();
   }
 
   /** Lorsque le joueur a sélectionné une proposition, on attend un peu avant de révéler les réponses, puis on relance un round */
@@ -75,6 +83,22 @@ export class AppComponent {
       if (!userAnswer!.isCorrect) {
         userAnswer!.isIncorrect = true;
       }
+      setTimeout(() => this.initRound(), TIME_TO_WAIT_FOR_NEXT_ROUND);
+    }, TIME_TO_WAIT_TO_SHOW_RESULT);
+  }
+
+  /** Lorsque le joueur a sélectionné un état sur la carte, on attend un peu avant de révéler les réponses, puis on relance un round */
+  public playerHasChosenStateOnMap(selectedStateName: string): void {
+    this.carteComponent.disableInteraction();
+    const TIME_TO_WAIT_FOR_NEXT_ROUND = 1.5 * 1000;
+    const TIME_TO_WAIT_TO_SHOW_RESULT = 1.5 * 1000;
+
+    setTimeout(() => {
+      this.carteComponent.setCorrectState(this.stateName);
+      if (this.stateName !== selectedStateName) {
+        this.carteComponent.setIncorrectState(selectedStateName);
+      }
+
       setTimeout(() => this.initRound(), TIME_TO_WAIT_FOR_NEXT_ROUND);
     }, TIME_TO_WAIT_TO_SHOW_RESULT);
   }

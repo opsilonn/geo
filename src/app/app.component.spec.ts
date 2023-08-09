@@ -29,7 +29,12 @@ describe('AppComponent', () => {
   it('#launchParty Quand on crée une partie avec le paramétrage "Pour un état affiché, trouver le nom", alors sélectionne un État à faire deviner et 4 propositions, dont la bonne', () => {
     // Given
     component.gameMode = GameModeEnum.FIND_NAME;
-    component.carteComponent = { getAllStates: () => ['État 1', 'État 2', 'État 3', 'État 4', 'État 5', 'État 6'], setSelectedState: () => null } as unknown as CarteComponent;
+    component.carteComponent = {
+      disableInteraction: () => null,
+      getAllStates: () => ['État 1', 'État 2', 'État 3', 'État 4', 'État 5', 'État 6'],
+      setSelectedState: () => null
+    } as unknown as CarteComponent;
+    spyOn(component.carteComponent, 'disableInteraction');
     spyOn(component.carteComponent, 'setSelectedState');
     spyOn(Math, 'random').and.returnValue(0); // On mocke l'aléatoire pour forcer le résultat
 
@@ -37,6 +42,7 @@ describe('AppComponent', () => {
     component.launchParty();
 
     // Then
+    expect(component.carteComponent.disableInteraction).toHaveBeenCalled();
     expect(component.carteComponent.setSelectedState).toHaveBeenCalledWith('État 1');
     expect(component.isUserInputEnabled).toBeTrue();
     expect(component.propositions).toEqual([
@@ -114,5 +120,43 @@ describe('AppComponent', () => {
       { label: 'État 3', isCorrect: false, isIncorrect: false, isSelected: false },
       { label: 'État 4', isCorrect: false, isIncorrect: false, isSelected: false },
     ]);
+  });
+
+  it('#playerHasChosenStateOnMap Quand le bon État est sélectionné, alors on assigne les classes en conséquence', () => {
+    // Given
+    component.carteComponent = { disableInteraction: () => null, setCorrectState: () => null, setIncorrectState: () => null } as unknown as CarteComponent;
+    spyOn(component.carteComponent, 'disableInteraction');
+    spyOn(component.carteComponent, 'setCorrectState');
+    spyOn(component.carteComponent, 'setIncorrectState');
+    component.gameMode = GameModeEnum.FIND_ON_MAP;
+    component.stateName = 'Le Bon État';
+
+    // When
+    component.playerHasChosenStateOnMap('Le Bon État');
+    jasmine.clock().tick(2000);
+
+    // Then
+    expect(component.carteComponent.disableInteraction).toHaveBeenCalled();
+    expect(component.carteComponent.setCorrectState).toHaveBeenCalledWith('Le Bon État');
+    expect(component.carteComponent.setIncorrectState).not.toHaveBeenCalled();
+  });
+
+  it('#playerHasChosenStateOnMap Quand le mauvais État est sélectionné, alors on assigne les classes en conséquence', () => {
+    // Given
+    component.carteComponent = { disableInteraction: () => null, setCorrectState: () => null, setIncorrectState: () => null } as unknown as CarteComponent;
+    spyOn(component.carteComponent, 'disableInteraction');
+    spyOn(component.carteComponent, 'setCorrectState');
+    spyOn(component.carteComponent, 'setIncorrectState');
+    component.gameMode = GameModeEnum.FIND_ON_MAP;
+    component.stateName = 'Le Bon État';
+
+    // When
+    component.playerHasChosenStateOnMap('Le mauvais État');
+    jasmine.clock().tick(2000);
+
+    // Then
+    expect(component.carteComponent.disableInteraction).toHaveBeenCalled();
+    expect(component.carteComponent.setCorrectState).toHaveBeenCalledWith('Le Bon État');
+    expect(component.carteComponent.setIncorrectState).toHaveBeenCalledWith('Le mauvais État');
   });
 });

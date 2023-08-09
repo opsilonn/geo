@@ -3,7 +3,7 @@
 <div class="content" role="main">
   <mat-grid-list cols="2" rowHeight="800px" class="grid-layout-custom">
     <mat-grid-tile>
-      <app-carte [isUserInputEnabled]="isUserInputEnabled"></app-carte>
+      <app-carte [isUserInputEnabled]="isUserInputEnabled" (whenUserHasChosen)="playerHasChosenStateOnMap($event)"></app-carte>
     </mat-grid-tile>
     
     <mat-grid-tile>
