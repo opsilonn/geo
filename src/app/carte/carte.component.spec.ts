@@ -19,6 +19,17 @@ describe('CarteComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('#enableInteraction Quand appelé, alors active les interactions de l\'utilisateur avec le composant', () => {
+    // Given
+    component.isUserInputEnabled = false;
+
+    // When
+    component.enableInteraction();
+
+    // Then
+    expect(component.isUserInputEnabled).toBeTrue();
+  });
+
   it('#disableInteraction Quand appelé, alors désactive les interactions de l\'utilisateur avec le composant', () => {
     // Given
     component['areInteractionEnabled'] = true;

@@ -49,6 +49,11 @@ export class CarteComponent implements AfterViewInit {
     $(`svg #${stateName}`).addClass('selected');
   }
 
+  /** Active les interactions avec la carte */
+  public enableInteraction(): void {
+    this.areInteractionEnabled = true;
+  }
+
   /** Désactive les interactions avec la carte */
   public disableInteraction(): void {
     this.areInteractionEnabled = false;
