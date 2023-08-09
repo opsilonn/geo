@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { CarteComponent } from 'app/carte/carte.component';
+import { CarteComponent } from 'app/components/carte/carte.component';
 import { ListHelper } from 'app/helpers/ListHelper';
 import { GameModeEnum } from 'app/models/game-mode-enum';
 import { Proposition } from 'app/models/proposition';

@@ -6,10 +6,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from 'app/app-routing.module';
 import { AppComponent } from 'app/app.component';
-import { CarteComponent } from 'app/carte/carte.component';
-import { PromptComponent } from 'app/prompt/prompt.component';
-import { SelectionComponent } from 'app/selection/selection.component';
-import { ToolbarComponent } from 'app/toolbar/toolbar.component';
+import { CarteComponent } from 'app/components/carte/carte.component';
+import { PromptComponent } from 'app/components/prompt/prompt.component';
+import { SelectionComponent } from 'app/components/selection/selection.component';
+import { ToolbarComponent } from 'app/components/toolbar/toolbar.component';
 
 
 @NgModule({

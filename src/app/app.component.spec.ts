@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from 'app/app.component';
 import { AppModule } from 'app/app.module';
-import { CarteComponent } from 'app/carte/carte.component';
+import { CarteComponent } from 'app/components/carte/carte.component';
 import { GameModeEnum } from 'app/models/game-mode-enum';
 import { MockBuilder } from 'ng-mocks';
 

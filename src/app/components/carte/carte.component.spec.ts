@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { AppModule } from 'app/app.module';
-import { CarteComponent } from 'app/carte/carte.component';
+import { CarteComponent } from 'app/components/carte/carte.component';
 import { CountryEnum } from 'app/models/country-enum';
 import { MockBuilder } from 'ng-mocks';
 

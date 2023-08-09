@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { AppModule } from 'app/app.module';
-import { SelectionComponent } from 'app/selection/selection.component';
+import { SelectionComponent } from 'app/components/selection/selection.component';
 import { MockBuilder } from 'ng-mocks';
 
 describe('SelectionComponent', () => {
