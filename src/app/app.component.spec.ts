@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { AppComponent } from 'app/app.component';
 import { AppModule } from 'app/app.module';
 import { CarteComponent } from 'app/components/carte/carte.component';
+import { PromptComponent } from 'app/components/prompt/prompt.component';
 import { GameModeEnum } from 'app/models/game-mode-enum';
 import { MockBuilder } from 'ng-mocks';
 
@@ -64,6 +65,10 @@ describe('AppComponent', () => {
     } as unknown as CarteComponent;
     spyOn(component.carteComponent, 'enableInteraction');
     spyOn(component.carteComponent, 'resetStates');
+
+    component.promptComponent = { reset: () => null } as unknown as PromptComponent;
+    spyOn(component.promptComponent, 'reset');
+
     spyOn(Math, 'random').and.returnValue(0); // On mocke l'aléatoire pour forcer le résultat
 
     // When
@@ -72,6 +77,7 @@ describe('AppComponent', () => {
     // Then
     expect(component.carteComponent.enableInteraction).toHaveBeenCalled();
     expect(component.carteComponent.resetStates).toHaveBeenCalled();
+    expect(component.promptComponent.reset).toHaveBeenCalled();
     expect(component.stateName).toEqual('État 1');
   });
 

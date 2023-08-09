@@ -1,3 +1,4 @@
 <div>
-    Trouver l'état : <b>{{ stateName }}</b>
+    <h1>Trouver l'état : <b [ngClass]="{ 'valid': isUserCorrect }">{{ stateName }}</b></h1>
+    <h3 *ngIf="wrongStateName">Raté ! vous avez sélectionné : <b class="error">{{ wrongStateName }}</b></h3>
 </div>

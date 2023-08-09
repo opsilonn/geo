@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { CarteComponent } from 'app/components/carte/carte.component';
+import { PromptComponent } from 'app/components/prompt/prompt.component';
 import { ListHelper } from 'app/helpers/ListHelper';
 import { GameModeEnum } from 'app/models/game-mode-enum';
 import { Proposition } from 'app/models/proposition';
@@ -13,6 +14,9 @@ export class AppComponent {
 
   @ViewChild(CarteComponent)
   carteComponent!: CarteComponent;
+
+  @ViewChild(PromptComponent)
+  promptComponent!: PromptComponent;
 
   public gameMode = GameModeEnum.FIND_ON_MAP;
   public isUserInputEnabled = true;
@@ -66,6 +70,7 @@ export class AppComponent {
   private initFindOnMapRound(): void {
     this.carteComponent.resetStates();
     this.carteComponent.enableInteraction();
+    this.promptComponent.reset();
   }
 
   /** Lorsque le joueur a sélectionné une proposition, on attend un peu avant de révéler les réponses, puis on relance un round */
@@ -98,6 +103,7 @@ export class AppComponent {
       if (this.stateName !== selectedStateName) {
         this.carteComponent.setIncorrectState(selectedStateName);
       }
+      this.promptComponent.setUserAnswer(selectedStateName);
 
       setTimeout(() => this.initRound(), TIME_TO_WAIT_FOR_NEXT_ROUND);
     }, TIME_TO_WAIT_TO_SHOW_RESULT);
