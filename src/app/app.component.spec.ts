@@ -81,6 +81,25 @@ describe('AppComponent', () => {
     expect(component.stateName).toEqual('État 1');
   });
 
+  it('#launchParty Quand on aucun État reste à deviner, alors on termine la partie', () => {
+    // Given
+    component.carteComponent = {
+      enableInteraction: () => null,
+      getAllStates: () => [],
+      resetStates: () => null
+    } as unknown as CarteComponent;
+    spyOn(component.carteComponent, 'resetStates');
+
+    spyOn(window, 'alert');
+
+    // When
+    component.launchParty();
+
+    // Then
+    expect(component.carteComponent.resetStates).toHaveBeenCalled();
+    expect(window.alert).toHaveBeenCalled();
+  });
+
   it('#playerHasChosenProposition Quand la bonne proposition est sélectionnée, alors on assigne les classes en conséquence', () => {
     // Given
     component.gameMode = GameModeEnum.FIND_NAME;

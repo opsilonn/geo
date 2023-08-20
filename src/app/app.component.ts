@@ -35,8 +35,19 @@ export class AppComponent {
     this.initRound();
   }
 
+  /** Gère la fin d'une partie */
+  private endParty(): void {
+    this.carteComponent.resetStates();
+    window.alert('bien joué, c\'est fini (:');
+  }
+
   /** Initialise la manche d'une partie */
   private initRound(): void {
+    if (this.hasNoRemainingRound()) {
+      this.endParty();
+      return;
+    }
+
     this.setRandomStateName();
 
     if (this.isGameModeFindName()) {
@@ -115,5 +126,13 @@ export class AppComponent {
   /** Retourne si le mode de jeu sélectionné est "trouver sur la carte" */
   public isGameModeFindOnMap(): boolean {
     return this.gameMode === GameModeEnum.FIND_ON_MAP;
+  }
+
+  /**
+   * Returns whether the game ends, or continues
+   * @returns Whether the game has no more remaining round
+   */
+  private hasNoRemainingRound(): boolean {
+    return this.stateNames.length === 0;
   }
 }
