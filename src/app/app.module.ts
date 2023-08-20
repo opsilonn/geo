@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from 'app/app-routing.module';
@@ -17,7 +18,6 @@ import { DialogCreatePartyComponent } from 'app/components/dialog-create-party/d
 import { PromptComponent } from 'app/components/prompt/prompt.component';
 import { SelectionComponent } from 'app/components/selection/selection.component';
 import { ToolbarComponent } from 'app/components/toolbar/toolbar.component';
-
 
 @NgModule({
   declarations: [
@@ -41,6 +41,7 @@ import { ToolbarComponent } from 'app/components/toolbar/toolbar.component';
     MatGridListModule,
     MatInputModule,
     MatRadioModule,
+    MatSelectModule,
     NgIf,
   ],
   providers: [

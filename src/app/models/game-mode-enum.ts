@@ -7,4 +7,12 @@ export class GameModeEnum {
     constructor(label: string) {
         this.label = label;
     }
+
+    /**
+     * Retourne tous les champs de l'énumération
+     * @returns tous les champs de l'énumération
+     */
+    public static getAll(): GameModeEnum[] {
+        return [GameModeEnum.FIND_NAME, GameModeEnum.FIND_ON_MAP];
+    }
 }

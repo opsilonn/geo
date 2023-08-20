@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreatePartyComponent } from 'app/components/dialog-create-party/dialog-create-party.component';
+import { PartyParameters } from 'app/models/party-parameters';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-toolbar',
@@ -9,10 +11,16 @@ import { DialogCreatePartyComponent } from 'app/components/dialog-create-party/d
 })
 export class ToolbarComponent {
 
+  @Output()
+  whenStartingNewParty: EventEmitter<PartyParameters> = new EventEmitter();
+
   constructor(public dialog: MatDialog) {}
 
   /** Ouvre le dialog pour configurer une nouvelle partie */
   public async openDialog(): Promise<void> {
-    this.dialog.open(DialogCreatePartyComponent);
+    const parameters: PartyParameters = await firstValueFrom(this.dialog.open(DialogCreatePartyComponent).afterClosed());
+    if (parameters) {
+      this.whenStartingNewParty.next(parameters);
+    }
   }
 }

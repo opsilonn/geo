@@ -1,4 +1,4 @@
-<app-toolbar></app-toolbar>
+<app-toolbar  (whenStartingNewParty)="launchParty($event)"></app-toolbar>
 
 <div class="content" role="main">
   <mat-grid-list cols="2" rowHeight="800px" class="grid-layout-custom">
@@ -11,7 +11,6 @@
       <app-selection *ngIf="isGameModeFindName()" [isUserInputEnabled]="isUserInputEnabled" [propositions]="propositions" (whenUserHasChosen)="playerHasChosenProposition($event)"></app-selection>
     </mat-grid-tile>
   </mat-grid-list>
-  <button mat-raised-button color="accent" (click)="launchParty()">Go</button>
 </div>
 
 <router-outlet></router-outlet>

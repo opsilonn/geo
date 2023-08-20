@@ -1,8 +1,24 @@
 <h1 mat-dialog-title>Nouvelle Partie</h1>
 
 <div mat-dialog-content>
+    <h4>Veuillez paramétrer votre partie :</h4>
+
+    <mat-radio-group aria-label="Veuillez sélectionner un mode de jeu :" [(ngModel)]="selectedGameMode">
+        <mat-radio-button *ngFor="let gameMode of GameModeEnum.getAll()" [value]="gameMode">
+            {{ gameMode.label }}
+        </mat-radio-button>
+    </mat-radio-group>
+
+    <mat-form-field>
+        <mat-label>Carte</mat-label>
+        <mat-select>
+            <mat-option *ngFor="let country of CountryEnum.getAll()" [value]="country">
+                {{ country.label }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
 </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button color="accent" (click)="validate()">Lancer Partie</button>
+    <button mat-raised-button color="accent" (click)="validate()">Lancer Partie</button>
 </div>

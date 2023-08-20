@@ -11,6 +11,11 @@ import { PartyParameters } from 'app/models/party-parameters';
 })
 export class DialogCreatePartyComponent {
 
+  public CountryEnum = CountryEnum;
+  public GameModeEnum = GameModeEnum;
+  public selectedCountry = CountryEnum.USA;
+  public selectedGameMode = GameModeEnum.FIND_NAME;
+
   constructor(
     public dialogRef: MatDialogRef<DialogCreatePartyComponent>,
   ) {}
@@ -18,8 +23,8 @@ export class DialogCreatePartyComponent {
   /** Retourne les configurations de l'utilisateur */
   public validate(): void {
     const parameters: PartyParameters = {
-      country: CountryEnum.USA,
-      gameMode: GameModeEnum.FIND_NAME
+      country: this.selectedCountry,
+      gameMode: this.selectedGameMode
     };
     this.dialogRef.close(parameters);
   }

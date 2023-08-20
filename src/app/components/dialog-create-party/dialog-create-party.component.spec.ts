@@ -26,6 +26,8 @@ describe('DialogCreatePartyComponent', () => {
 
   it('#validate Quand l\'utilisateur valide le formulaire, alors envoie ses données', () => {
     // Given
+    component.selectedCountry = CountryEnum.FRANCE;
+    component.selectedGameMode = GameModeEnum.FIND_ON_MAP;
     spyOn(dialogRef, 'close');
 
     // When
@@ -33,8 +35,8 @@ describe('DialogCreatePartyComponent', () => {
 
     // Then
     expect(dialogRef.close).toHaveBeenCalledWith({
-      country: CountryEnum.USA,
-      gameMode: GameModeEnum.FIND_NAME
+      country: CountryEnum.FRANCE,
+      gameMode: GameModeEnum.FIND_ON_MAP
     });
   });
 });

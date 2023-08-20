@@ -3,6 +3,7 @@ import { AppComponent } from 'app/app.component';
 import { AppModule } from 'app/app.module';
 import { CarteComponent } from 'app/components/carte/carte.component';
 import { PromptComponent } from 'app/components/prompt/prompt.component';
+import { CountryEnum } from 'app/models/country-enum';
 import { GameModeEnum } from 'app/models/game-mode-enum';
 import { MockBuilder } from 'ng-mocks';
 
@@ -29,7 +30,6 @@ describe('AppComponent', () => {
 
   it('#launchParty Quand on crée une partie avec le paramétrage "Pour un état affiché, trouver le nom", alors sélectionne un État à faire deviner et 4 propositions, dont la bonne', () => {
     // Given
-    component.gameMode = GameModeEnum.FIND_NAME;
     component.carteComponent = {
       disableInteraction: () => null,
       getAllStates: () => ['État 1', 'État 2', 'État 3', 'État 4', 'État 5', 'État 6'],
@@ -40,7 +40,10 @@ describe('AppComponent', () => {
     spyOn(Math, 'random').and.returnValue(0); // On mocke l'aléatoire pour forcer le résultat
 
     // When
-    component.launchParty();
+    component.launchParty({
+      gameMode: GameModeEnum.FIND_NAME,
+      country: CountryEnum.USA
+    });
 
     // Then
     expect(component.carteComponent.disableInteraction).toHaveBeenCalled();
@@ -57,7 +60,6 @@ describe('AppComponent', () => {
 
   it('#launchParty Quand on crée une partie avec le paramétrage "Pour un le nom d\'un État, le trouver sur la carte", alors sélectionne un État à faire deviner et configure la carte', () => {
     // Given
-    component.gameMode = GameModeEnum.FIND_ON_MAP;
     component.carteComponent = {
       enableInteraction: () => null,
       getAllStates: () => ['État 1', 'État 2', 'État 3', 'État 4', 'État 5', 'État 6'],
@@ -72,7 +74,10 @@ describe('AppComponent', () => {
     spyOn(Math, 'random').and.returnValue(0); // On mocke l'aléatoire pour forcer le résultat
 
     // When
-    component.launchParty();
+    component.launchParty({
+      gameMode: GameModeEnum.FIND_ON_MAP,
+      country: CountryEnum.USA
+    });
 
     // Then
     expect(component.carteComponent.enableInteraction).toHaveBeenCalled();
@@ -93,7 +98,10 @@ describe('AppComponent', () => {
     spyOn(window, 'alert');
 
     // When
-    component.launchParty();
+    component.launchParty({
+      gameMode: GameModeEnum.FIND_ON_MAP,
+      country: CountryEnum.USA
+    });
 
     // Then
     expect(component.carteComponent.resetStates).toHaveBeenCalled();

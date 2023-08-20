@@ -3,6 +3,7 @@ import { CarteComponent } from 'app/components/carte/carte.component';
 import { PromptComponent } from 'app/components/prompt/prompt.component';
 import { ListHelper } from 'app/helpers/ListHelper';
 import { GameModeEnum } from 'app/models/game-mode-enum';
+import { PartyParameters } from 'app/models/party-parameters';
 import { Proposition } from 'app/models/proposition';
 
 @Component({
@@ -29,7 +30,9 @@ export class AppComponent {
   private readonly TIME_TO_WAIT_TO_SHOW_RESULT = 1.5 * 1000;
 
   /** Lance une partie une partie */
-  public launchParty(): void {
+  public launchParty(parameters: PartyParameters): void {
+    this.gameMode = parameters.gameMode;
+    // Quid du pays ? pour le moment, on on se contente des USA
     this.stateNames = this.carteComponent.getAllStates();
     this.stateNamesCopy = this.stateNames;
     this.initRound();
