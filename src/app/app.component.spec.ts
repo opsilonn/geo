@@ -33,9 +33,11 @@ describe('AppComponent', () => {
     component.carteComponent = {
       disableInteraction: () => null,
       getAllStates: () => ['État 1', 'État 2', 'État 3', 'État 4', 'État 5', 'État 6'],
+      resetStates: () => null,
       setSelectedState: () => null
     } as unknown as CarteComponent;
     spyOn(component.carteComponent, 'disableInteraction');
+    spyOn(component.carteComponent, 'resetStates');
     spyOn(component.carteComponent, 'setSelectedState');
     spyOn(Math, 'random').and.returnValue(0); // On mocke l'aléatoire pour forcer le résultat
 
@@ -47,6 +49,7 @@ describe('AppComponent', () => {
 
     // Then
     expect(component.carteComponent.disableInteraction).toHaveBeenCalled();
+    expect(component.carteComponent.resetStates).toHaveBeenCalled();
     expect(component.carteComponent.setSelectedState).toHaveBeenCalledWith('État 1');
     expect(component.isUserInputEnabled).toBeTrue();
     expect(component.propositions).toEqual([

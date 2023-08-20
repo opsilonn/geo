@@ -70,6 +70,7 @@ export class AppComponent {
   
   /** Initialise la manche d'une partie "Trouver le nom d'un état affiché sur la carte" */
   private initFindNameRound(): void {
+    this.carteComponent.resetStates();
     this.carteComponent.setSelectedState(this.stateName);
     this.carteComponent.disableInteraction();
 
