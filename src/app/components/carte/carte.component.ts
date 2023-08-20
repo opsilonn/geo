@@ -26,7 +26,8 @@ export class CarteComponent implements AfterViewInit {
   public getAllStates(): string[] {
     return $("svg .state[id]")
       .map(function () { return this.id; })
-      .get();
+      .get()
+      .map((name: string) => this.formatIdToTS(name));
   }
 
   /** Configure la sélection des états au clic */
@@ -37,9 +38,10 @@ export class CarteComponent implements AfterViewInit {
 
     allStates.on("click", function () {
       if (self.areInteractionEnabled) {
-        const selectedStateName = $(this).attr('id');
-        if (selectedStateName) {
-          self.whenUserHasChosen.next(selectedStateName!);
+        const selectedStateId = $(this).attr('id');
+        if (selectedStateId) {
+          const selectedStateName = self.formatIdToTS(selectedStateId);
+          self.whenUserHasChosen.next(selectedStateName);
           $(this).addClass("selected");
         }
       }
@@ -76,7 +78,8 @@ export class CarteComponent implements AfterViewInit {
    * @param className Classe à ajouter
    */
   private setStateClass(stateName: string, className: string): void {
-    $(`svg #${stateName}`).addClass(className);
+    const id = this.formatIdToHTML(stateName);
+    $(`svg #${id}`).addClass(className);
   }
 
   /** Retire les classes aux régions */
@@ -99,5 +102,23 @@ export class CarteComponent implements AfterViewInit {
 
   public isUSA(): boolean {
     return this.selectedCountry === CountryEnum.USA;
+  }
+
+  /**
+   * Formatte un id pour qu'il puisse être utilisé dans l'HTML
+   * @param id Id à convertir
+   * @returns Formatte un id à l'utilisation dans l'HTML
+   */
+  private formatIdToHTML(id: string): string {
+    return id.replaceAll(' ', '_');
+  }
+
+  /**
+   * Formatte un id pour qu'il puisse être affiché
+   * @param id Id à convertir
+   * @returns Formatte un id à l'affichage
+   */
+  private formatIdToTS(id: string): string {
+    return id.replaceAll('_', ' ');
   }
 }
